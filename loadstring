@@ -1,3 +1,3 @@
 if game.PlaceID == 12454097560 then
-  
+   loadstring(game:HttpGet("https://github.com/zanerBRUH/Vexus-Hub/blob/main/Soul%20Cultivation%20Script"))()
 end
