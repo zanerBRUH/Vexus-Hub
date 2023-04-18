@@ -1,24 +1,364 @@
--- go to forest of dao and execute it, then press p to active script or deactivate
-local UIS = game:GetService("UserInputService")
-local loopOn = true
-UIS.InputBegan:Connect(function(i,g)
-  if i.KeyCode == Enum.KeyCode.P then
-    if loopOn == true then
-      loopOn = false
-        else
-          loopOn = true
-        end
-      print(loopOn)
-    end
-  end)
-while true do
-  for i,v in pairs (game.Workspace.Areas["Forest Of Dao"].Ginseng:GetChildren()) do
-    if loopOn == false then break end
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        task.wait(0.3)
-            local args = { v, "Ginseng" }
-          game:GetService("ReplicatedStorage").Harvest.Harvest:FireServer(unpack(args))
-        task.wait(9)
-      end
-    task.wait()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Vexus Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "Vexus Hub Orion"})
+
+--[[
+Name = <string> - The name of the UI.
+HidePremium = <bool> - Whether or not the user details shows Premium status or not.
+SaveConfig = <bool> - Toggles the config saving in the UI.
+ConfigFolder = <string> - The name of the folder where the configs are saved.
+IntroEnabled = <bool> - Whether or not to show the intro animation.
+IntroText = <string> - Text to show in the intro animation.
+IntroIcon = <string> - URL to the image you want to use in the intro animation.
+Icon = <string> - URL to the image you want displayed on the window.
+CloseCallback = <function> - Function to execute when the window is closed.
+]]
+
+--===================--
+--//Local Variables\\--
+--===================--
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local HasQuest = game:GetService("Players").LocalPlayer.stats["Has Quest"].Value
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+
+teleport_table = {
+	TheStarterIsland = Vector3.new(159, 71, -520), -- your desired position
+	YinYangTree = Vector3.new(206, 76, 820),  -- your desired position
+	LawlessLand = Vector3.new(-1108, 74, 480),  -- your desired position
+	LibaryOfDao = Vector3.new(-2661, 73, 962),  -- your desired position
+	ForestOfDao = Vector3.new(1794, 78, 1118),  -- your desired position
+	YangSect = Vector3.new(-1452, 73, 3689),  -- your desired position
+	WhitePelago = Vector3.new(0,0,0),
+	GreenPelago = Vector3.new(0,0,0),
+	QiPelago = Vector3.new(0,0,0),
+	DemonPelago = Vector3.new(0,0,0),
+	YinArchipelago = Vector3.new(2522, 77, 3555),  -- your desired position
+	TheUnitedDaoistLand = Vector3.new(1284, 77, 4940)  -- your desired position
+}
+
+Quests = {}
+for i,v in pairs(workspace:FindFirstChild("Quest NPCS"):GetChildren()) do
+    table.insert(Quests,v.Name)
+end;
+
+Mobs = {"Bandit", "Bandit Leader", "Rogue Soldier", "Pirate", "Strong Bandit", "Buff Evil Daoist", "Poacher", "Evil Cultivator", "Delinquent", "Heavnly Cultivator", "Travelling Daoist", "Sect Elder", "Sect Leader", "Lesser Angel", "Greater Angel", "Heavens Overseer", "Cosmic Being", "Universe Overseer"}
+
+
+print("Anti Idle Start")
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+print("Anti Idle Succesfully Activated")
+
+
+--================--
+--//Autofarm Tab\\--
+--================--
+
+local MainTab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+--[[
+Name = <string> - The name of the tab.
+Icon = <string> - The icon of the tab.
+PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
+]]
+
+--======================--
+--//Auto Quest Section\\--
+--======================--
+
+local AutoQuestSection = MainTab:AddSection({
+	Name = "Auto Quest"
+})
+
+local AutoQuestToggle;
+
+MainTab:AddToggle({
+	Name = "Auto Quest Toggle (Activate First and Before Swapping)",
+	Default = false,
+	Callback = function(Value)
+        AutoQuestToggle = Value;
+		print(Value)
+	end    
+})
+
+--[[
+Name = <string> - The name of the toggle.
+Default = <bool> - The default value of the toggle.
+Callback = <function> - The function of the toggle.
+]]
+
+
+
+MainTab:AddDropdown({
+	Name = "Auto Quest Selection",
+	Default = "Select A Quest (Buggy btw)",
+	Options = Quests,
+	Callback = function(Quest)
+		print(Quest)
+        while AutoQuestToggle and wait(1) do
+            print("1")
+                print("2")
+                local args = {
+                    [1] = workspace:FindFirstChild("Quest NPCS"):FindFirstChild(Quest).HumanoidRootPart.QuestActivator.Quest
+                }
+                game:GetService("ReplicatedStorage"):FindFirstChild("Quest Remote Events").EnableQuest:FireServer(unpack(args))
+	        
+	    end
+	end    
+})
+
+--[[
+Name = <string> - The name of the dropdown.
+Default = <string> - The default value of the dropdown.
+Options = <table> - The options in the dropdown.
+Callback = <function> - The function of the dropdown.
+]]
+
+MainTab:AddButton({
+	Name = "Remove All Quests (Use After Swapping Auto Quest)",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):FindFirstChild("Quest Remote Events").LeaveQuest:FireServer()
+  	end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - The function of the button.
+]]
+
+--====================--
+--//Autofarm Section\\--
+--====================--
+
+local AutoFarmSection = MainTab:AddSection({
+	Name = "Autofarm"
+})
+
+game:GetService("RunService").Stepped:Connect(function()
+    while _G.KillAura and wait(1) do
+        pcall(function()
+            local toolname = "Combat"
+                if LocalPlayer.Backpack:FindFirstChild(toolname) and Plr.Character:FindFirstChild(toolname) == nil then
+                    local tool = Plr.Backpack:FindFirstChild(toolname)
+                    Plr.Character.Humanoid:EquipTool(tool)
+                end
+            end)
+        local args = {
+            [1] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Right Leg")
+        }
+        game:GetService("Players").LocalPlayer.Character.Combat.Combo.C1:FireServer(unpack(args))
+    end;
+end);
+
+
+MainTab:AddToggle({
+	Name = "Autofarm Toggle",
+	Default = false,
+	Callback = function(Value)
+        _G.AutofarmToggle = Value
+		print(Value)
+		    while _G.AutofarmToggle and wait() do
+                for i,v in pairs(game.Workspace.NPCS:GetDescendants()) do
+                    if string.find(v.Name, _G.Mob) and v:FindFirstChild("HumanoidRootPart") then
+                        v:FindFirstChild("HumanoidRootPart").Anchored = true
+                            repeat wait()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame + (v.HumanoidRootPart.CFrame.lookVector * -_G.DIS)
+                            until v.Humanoid.Health <= 0 or not _G.AutofarmToggle
+                        end;
+                    end;
+                end;
+            end;
+})
+
+MainTab:AddToggle({
+	Name = "Kill Aura",
+	Default = false,
+	Callback = function(Value)
+		_G.KillAura = Value
+	end
+})
+
+MainTab:AddDropdown({
+	Name = "Autofarm Selection (Must Be Near Selected Mob)",
+	Default = "Select A Mob",
+	Options = Mobs,
+	Callback = function(MobValue)
+	    _G.Mob = MobValue
+		print(MobValue)
+	end
+})
+
+MainTab:AddSlider({
+	Name = "Distance",
+	Min = 0,
+	Max = 15,
+	Default = 3,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Distance",
+	Callback = function(time)
+		_G.DIS = time
+	end    
+})
+
+--==========================--
+--//Autofarm Herbs Section\\--
+--==========================--
+
+local AutoFarmHerbSection = MainTab:AddSection({
+	Name = "Herbs"
+})
+
+MainTab:AddToggle({
+	Name = "Farm Ginseng (TP to Forest Of Dao First)",
+	Default = false,
+	Callback = function(GinsengToggle)
+		_G.FarmGinsengToggle = GinsengToggle
+		while _G.FarmGinsengToggle do
+			for i,v in pairs (game.Workspace.Areas["Forest Of Dao"].Ginseng:GetChildren()) do
+			  if not _G.FarmGinsengToggle then break end
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+				  task.wait(0.3)
+					  local args = { v, "Ginseng" }
+					game:GetService("ReplicatedStorage").Harvest.Harvest:FireServer(unpack(args))
+				  task.wait(10)
+				end
+			  task.wait()
+		  end
+	end    
+})
+
+MainTab:AddToggle({
+	Name = "Farm Lotus (TP to Green Pelago)",
+	Default = false,
+	Callback = function(LotusToggle)
+		_G.FarmLotusToggle = LotusToggle
+		while _G.FarmLotusToggle do
+			for i,v in pairs (game.Workspace.Areas["Green Pelago"].Lotus:GetChildren()) do
+			  if not _G.FarmLotusToggle then break end
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+				  task.wait(0.3)
+					  local args = { v, "Lotus" }
+					game:GetService("ReplicatedStorage").Harvest.Harvest:FireServer(unpack(args))
+				  task.wait(10)
+				end
+			  task.wait()
+		  end
+	end    
+})
+
+--==============--
+--//Player Tab\\--
+--==============--
+
+local PlayerTab = Window:MakeTab({
+    Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+PlayerTab:AddToggle({
+	Name = "Walkspeed Toggle",
+	Default = false,
+	Callback = function(ToggleSpeed)
+	    _G.SpeedToggle = ToggleSpeed
+	end    
+})
+
+PlayerTab:AddSlider({
+	Name = "Walkspeed",
+	Min = 0,
+	Max = 200,
+	Default = 18,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(speedvalue)
+	    if _G.SpeedToggle and wait(.01) then
+	        repeat wait()
+		        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speedvalue
+		  until not _G.SpeedToggle
+	    end
+	end    
+})
+
+--================--
+--//Teleport Tab\\--
+--================--
+
+local TPTab = Window:MakeTab({
+	Name = "Teleport",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+TPTab:AddDropdown({
+	Name = "Teleport Selection (Tween)",
+	Default = nil,
+	Options = {"The Starter Island", "Yin Yang Tree", "Lawless Land", "Libary of Dao", "Forest of Dao", "Yang Sect", "Yin Archipelago", "The United Daoist Land"},
+	Callback = function(Location)
+		print("TP = "..Location)
+		_G.TPLocation = Location
+
+	if _G.TPLocation == "The Starter Island" then
+		_G.TPLocation = "TheStarterIsland"
+	elseif _G.TPLocation == "Yin Yang Tree" then
+		_G.TPLocation = "YinYangTree"
+		
+	elseif _G.TPLocation == "Lawless Land" then
+		_G.TPLocation = "LawlessLand"
+		
+	elseif _G.TPLocation == "Libary of Dao" then
+		_G.TPLocation = "LibaryOfDao"
+		
+	elseif _G.TPLocation == "Forest of Dao" then
+		_G.TPLocation = "ForestOfDao"
+		
+	elseif _G.TPLocation == "Yang Sect" then
+		_G.TPLocation = "YangSect"
+		
+	elseif _G.TPLocation == "Yin Archipelago" then
+		_G.TPLocation = "YinArchipelago"
+		
+	elseif _G.TPLocation == "The United Daoist Land" then
+		_G.TPLocation = "TheUnitedDaoistLand"
+	end
+	print(_G.TPLocation)
+end
+})
+
+TPTab:AddButton({
+	Name = "Teleport",
+	Callback = function()
+		bypass_teleport(teleport_table[_G.TPLocation])
+		print("TP Sucess")
+  	end    
+})
+
+--==============--
+--//Tween Shit\\--
+--==============--
+
+
+
+
+
+function bypass_teleport(v)
+	if LocalPlayer.Character and 
+	LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then
+		local cf = CFrame.new(v)
+		local a = tween_s:Create(LocalPlayer.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+		a:Play()
+		-- a.Completed:Wait()
+		-- print('Teleporting Done!')
+	end
 end
