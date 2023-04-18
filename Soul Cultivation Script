@@ -18,6 +18,10 @@ CloseCallback = <function> - Function to execute when the window is closed.
 --===================--
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local stats = LocalPlayer.stats
+local CultivationRank = stats.CultivationRank
+local CurrentQi = stats.Qi
+local MxQi = stats.MaxQi
 local HasQuest = game:GetService("Players").LocalPlayer.stats["Has Quest"].Value
 local tween_s = game:GetService('TweenService')
 local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
@@ -257,6 +261,60 @@ MainTab:AddToggle({
 })
 
 --==============--
+--//Misc Tab\\--
+--==============--
+
+local MiscTab = Window:MakeTab({
+    Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+_G.AdvancedBreakthroughToggle = true
+
+MiscTab:AddToggle({
+	Name = "Auto Breakthrough (Advanced)",
+	Default = false,
+	Callback = function(ToggleAdvancedBreakthrough)
+	    
+	    while AdvancedBreakthroughToggle do
+            AutoBreakthrough()
+        end
+	end    
+})
+
+MiscTab:AddToggle({
+	Name = "Auto Breakthrough (Basic)",
+	Default = false,
+	Callback = function(ToggleBasicBreakthrough)
+	    _G.BasicBreakthroughToggle = ToggleBasicBreakthrough
+	    wait(1)
+	    if BasicBreakthroughToggle == true then
+	        local args = {
+	    	[1] = true
+            	}
+	        game:GetService("ReplicatedStorage"):FindFirstChild("Qi Remote Events").Breakthough:FireServer(unpack(args))
+        end
+	end    
+})
+
+MiscTab:AddButton({
+	Name = "Breakthrough!",
+	Callback = function()
+	   while _G.AdvancedBreakthroughToggle == true do
+	       print("1")
+            AutoBreakthrough()
+        end
+  	end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - The function of the button.
+]]
+
+--==============--
 --//Player Tab\\--
 --==============--
 
@@ -338,9 +396,9 @@ TPTab:AddButton({
   	end    
 })
 
---==============--
---//Tween Shit\\--
---==============--
+--=================--
+--//Function Shit\\--
+--=================--
 
 
 
@@ -356,3 +414,769 @@ function bypass_teleport(v)
 		-- print('Teleporting Done!')
 	end
 end
+
+function breakthrough()
+	local args = {
+		[1] = true
+	}
+	game:GetService("ReplicatedStorage"):FindFirstChild("Qi Remote Events").Breakthough:FireServer(unpack(args))
+end
+
+function AutoBreakthrough()
+    while BreakthroughToggle and wait(1) do
+			if CultivationRank == "Mortal Stage I" and MaxQi >= 60 and CurrentQi >= 60 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage II" and MaxQi >= 85 and CurrentQi >= 85 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage III" and MaxQi >= 120 and CurrentQi >= 120 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage IV" and MaxQi >= 169 and CurrentQi >= 169 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage V" and MaxQi >= 239 and CurrentQi >= 239 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage VI" and MaxQi >= 337 and CurrentQi >= 337 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage VII" and MaxQi >= 476 and CurrentQi >= 476 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage VIII" and MaxQi >= 672 and CurrentQi >= 672 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage IX" and MaxQi >= 948 and CurrentQi >= 948 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Mortal Stage X" and MaxQi >= 2700 and CurrentQi >= 2700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Qi Condensation Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage I" and MaxQi >= 238000 and CurrentQi >= 238000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage II" and MaxQi >= 336000 and CurrentQi >= 336000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage III" and MaxQi >= 475000 and CurrentQi >= 475000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage IV" and MaxQi >= 670000 and CurrentQi >= 670000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage V" and MaxQi >= 946000 and CurrentQi >= 946000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage VI" and MaxQi >= 1340000 and CurrentQi >= 1340000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage VII" and MaxQi >= 1890000 and CurrentQi >= 1890000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage VIII" and MaxQi >= 2700000 and CurrentQi >= 2700000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage IX" and MaxQi >= 3760000 and CurrentQi >= 3760000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Foundation Establishment Stage X" and MaxQi >= 10700000 and CurrentQi >= 10700000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage I" and MaxQi >= 15000000 and CurrentQi >= 15000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage II" and MaxQi >= 22000000 and CurrentQi >= 22000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage III" and MaxQi >= 29900000 and CurrentQi >= 29900000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage IV" and MaxQi >= 42200000 and CurrentQi >= 42200000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage V" and MaxQi >= 60000000 and CurrentQi >= 60000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage VI" and MaxQi >= 84100000 and CurrentQi >= 84100000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage VII" and MaxQi >= 119000000 and CurrentQi >= 119000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage VIII" and MaxQi >= 168000000 and CurrentQi >= 168000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage IX" and MaxQi >= 237000000 and CurrentQi >= 237000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Core Formation Stage X" and MaxQi >= 669000000 and CurrentQi >= 669000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage I" and MaxQi >= 943400000 and CurrentQi >= 943400000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage II" and MaxQi >= 1340000000 and CurrentQi >= 1340000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage III" and MaxQi >= 1880000000 and CurrentQi >= 1880000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage IV" and MaxQi >= 2660000000 and CurrentQi >= 2660000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage V" and MaxQi >= 3750000000 and CurrentQi >= 3750000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage VI" and MaxQi >= 5300000000 and CurrentQi >= 5300000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage VII" and MaxQi >= 7500000000 and CurrentQi >= 7500000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage VIII" and MaxQi >= 10600000000 and CurrentQi >= 10600000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage IX" and MaxQi >= 14900000000 and CurrentQi >= 14900000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Spirit Stage X" and MaxQi >= 42100000000 and CurrentQi >= 42100000000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Nascent Soul Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Formation Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Soul Transformation Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Transcendent Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Loose Immortal Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Immortal Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Celestial Immortal Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Chaos Immortal Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Sovereign Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Dao Ancestor Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Lesser Divinity Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Greater Divinity Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "True Divinity Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin King Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin God Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Origin Sovereignity Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-True God Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Pure Deity Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "Quasi-World Sovereign Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage I" and MaxQi >= 3800 and CurrentQi >= 3800 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage II" and MaxQi >= 5400 and CurrentQi >= 5400 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage III" and MaxQi >= 7600 and CurrentQi >= 7600 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage IV" and MaxQi >= 10700 and CurrentQi >= 10700 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage V" and MaxQi >= 15100 and CurrentQi >= 15100 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage VI" and MaxQi >= 21200 and CurrentQi >= 21200 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage VII" and MaxQi >= 30000 and CurrentQi >= 30000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage VIII" and MaxQi >= 42300 and CurrentQi >= 42300 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage IX" and MaxQi >= 60000 and CurrentQi >= 60000 then
+				breakthrough()
+				wait(.1)
+			elseif CultivationRank == "World Sovereign Stage X" and MaxQi >= 168600 and CurrentQi >= 168600 then
+				breakthrough()
+				wait(.1)
+			end
+		task.wait(1)
+	end
+end
+
