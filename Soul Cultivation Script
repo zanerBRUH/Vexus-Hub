@@ -180,7 +180,7 @@ MainTab:AddToggle({
 })
 
 MainTab:AddToggle({
-	Name = "Kill Aura",
+	Name = "Kill Aura (Equip Combat Also can be a little silly)",
 	Default = false,
 	Callback = function(Value)
 		_G.KillAura = Value
@@ -313,22 +313,16 @@ TPTab:AddDropdown({
 		_G.TPLocation = "TheStarterIsland"
 	elseif _G.TPLocation == "Yin Yang Tree" then
 		_G.TPLocation = "YinYangTree"
-		
 	elseif _G.TPLocation == "Lawless Land" then
 		_G.TPLocation = "LawlessLand"
-		
 	elseif _G.TPLocation == "Libary of Dao" then
 		_G.TPLocation = "LibaryOfDao"
-		
 	elseif _G.TPLocation == "Forest of Dao" then
 		_G.TPLocation = "ForestOfDao"
-		
 	elseif _G.TPLocation == "Yang Sect" then
 		_G.TPLocation = "YangSect"
-		
 	elseif _G.TPLocation == "Yin Archipelago" then
 		_G.TPLocation = "YinArchipelago"
-		
 	elseif _G.TPLocation == "The United Daoist Land" then
 		_G.TPLocation = "TheUnitedDaoistLand"
 	end
